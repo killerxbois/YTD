@@ -4,6 +4,8 @@ import yt_dlp
 import os
 import json
 from datetime import datetime
+from threading import Thread
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
 BOT_TOKEN = "7586091566:AAGw_jZYta7aDK71sG-ZVYdBBfvb9h9S5Sk"
 ADMIN_ID = 7586091566  # Replace with your Telegram user ID
@@ -11,7 +13,20 @@ user_links = {}
 usage_log = "usage_log.json"
 download_count = "count.log"
 
-# Load usage data
+# ================== FAKE SERVER FOR RENDER ==================
+class FakeServer(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"✅ Bot is Running on Render!")
+
+def run_fake_server():
+    server = HTTPServer(('0.0.0.0', 10000), FakeServer)
+    server.serve_forever()
+
+Thread(target=run_fake_server).start()
+
+# ================== USAGE LOG ==================
 def load_usage():
     if os.path.exists(usage_log):
         with open(usage_log, "r") as f:
@@ -32,6 +47,7 @@ def increment_count():
         f.write(str(count))
     return count
 
+# ================== COMMANDS ==================
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("🎉 Welcome to YTD BOT Pro!\nSend any YouTube link to choose Audio or Video download.")
 
@@ -132,6 +148,7 @@ async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
             count = f.read().strip()
     await update.message.reply_text(f"📊 Total downloads: {count}")
 
+# ================== INIT APP ==================
 app = ApplicationBuilder().token(BOT_TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("stats", stats))
