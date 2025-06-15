@@ -49,7 +49,7 @@ def increment_count():
 
 # Bot handlers
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Welcome to YTD BOT Pro!
+    await update.message.reply_text("Welcome to YTD BOT Pro!")
 Send any YouTube link to choose Audio or Video download.")
 
 async def handle_link(update: Update, context: ContextTypes.DEFAULT_TYPE):
