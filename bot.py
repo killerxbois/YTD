@@ -49,7 +49,8 @@ def increment_count():
 
 # Bot handlers
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("🎉 Welcome to YTD BOT Pro!\nSend any YouTube link to choose Audio or Video download.")
+    await update.message.reply_text("🎉 Welcome to YTD BOT Pro!
+Send any YouTube link to choose Audio or Video download.")
 
 async def handle_link(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = str(update.effective_user.id)
@@ -108,6 +109,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     'preferredquality': '192',
                 }],
                 'cookiefile': 'cookies.txt',
+                'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/123.0.0.0 Safari/537.36',
                 'quiet': True
             }
             ext = "mp3"
@@ -117,6 +119,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 'outtmpl': 'downloads/%(title)s.%(ext)s',
                 'merge_output_format': 'mp4',
                 'cookiefile': 'cookies.txt',
+                'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/123.0.0.0 Safari/537.36',
                 'quiet': True
             }
             ext = "mp4"
