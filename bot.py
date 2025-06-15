@@ -8,12 +8,12 @@ from threading import Thread
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 BOT_TOKEN = "7586091566:AAGw_jZYta7aDK71sG-ZVYdBBfvb9h9S5Sk"
-ADMIN_ID = 7586091566  # Replace with your Telegram user ID
+ADMIN_ID = 7586091566
 user_links = {}
 usage_log = "usage_log.json"
 download_count = "count.log"
 
-# ================== FAKE SERVER FOR RENDER ==================
+# Fake server for Render
 class FakeServer(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
@@ -26,7 +26,7 @@ def run_fake_server():
 
 Thread(target=run_fake_server).start()
 
-# ================== USAGE LOG ==================
+# Usage log functions
 def load_usage():
     if os.path.exists(usage_log):
         with open(usage_log, "r") as f:
@@ -47,7 +47,7 @@ def increment_count():
         f.write(str(count))
     return count
 
-# ================== COMMANDS ==================
+# Bot handlers
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("🎉 Welcome to YTD BOT Pro!\nSend any YouTube link to choose Audio or Video download.")
 
@@ -95,7 +95,6 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     choice = query.data
     await query.edit_message_text("⏳ Downloading... Please wait.")
-
     os.makedirs("downloads", exist_ok=True)
 
     try:
@@ -108,6 +107,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     'preferredcodec': 'mp3',
                     'preferredquality': '192',
                 }],
+                'cookiefile': 'cookies.txt',
                 'quiet': True
             }
             ext = "mp3"
@@ -116,6 +116,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 'format': 'bestvideo+bestaudio/best',
                 'outtmpl': 'downloads/%(title)s.%(ext)s',
                 'merge_output_format': 'mp4',
+                'cookiefile': 'cookies.txt',
                 'quiet': True
             }
             ext = "mp4"
@@ -148,7 +149,7 @@ async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
             count = f.read().strip()
     await update.message.reply_text(f"📊 Total downloads: {count}")
 
-# ================== INIT APP ==================
+# Run the bot
 app = ApplicationBuilder().token(BOT_TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("stats", stats))
