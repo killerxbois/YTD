@@ -18,7 +18,7 @@ class FakeServer(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
         self.end_headers()
-        self.wfile.write(b"✅ Bot is Running on Render!")
+        self.wfile.write(b"Bot is Running on Render!")
 
 def run_fake_server():
     server = HTTPServer(('0.0.0.0', 10000), FakeServer)
