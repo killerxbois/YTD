@@ -49,7 +49,7 @@ def increment_count():
 
 # Bot handlers
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("🎉 Welcome to YTD BOT Pro!
+    await update.message.reply_text("Welcome to YTD BOT Pro!
 Send any YouTube link to choose Audio or Video download.")
 
 async def handle_link(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -59,12 +59,12 @@ async def handle_link(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if user_id not in usage:
         usage[user_id] = {}
     if usage[user_id].get(today, 0) >= 10:
-        await update.message.reply_text("🚫 Daily limit reached (10 downloads/day). Try again tomorrow.")
+        await update.message.reply_text("Daily limit reached (10 downloads/day). Try again tomorrow.")
         return
 
     url = update.message.text.strip()
     if "youtube.com" not in url and "youtu.be" not in url:
-        await update.message.reply_text("❌ Please send a valid YouTube link.")
+        await update.message.reply_text("Please send a valid YouTube link.")
         return
 
     user_links[update.effective_chat.id] = url
@@ -91,11 +91,11 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     url = user_links.get(chat_id)
     if not url:
-        await query.edit_message_text("❌ Link expired. Send again.")
+        await query.edit_message_text("Link expired. Send again.")
         return
 
     choice = query.data
-    await query.edit_message_text("⏳ Downloading... Please wait.")
+    await query.edit_message_text("Downloading... Please wait.")
     os.makedirs("downloads", exist_ok=True)
 
     try:
@@ -141,7 +141,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         increment_count()
 
     except Exception as e:
-        await context.bot.send_message(chat_id=chat_id, text=f"❌ Error: {str(e)}")
+        await context.bot.send_message(chat_id=chat_id, text=f"Error: {str(e)}")
 
 async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id != ADMIN_ID:
@@ -150,7 +150,7 @@ async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if os.path.exists(download_count):
         with open(download_count, "r") as f:
             count = f.read().strip()
-    await update.message.reply_text(f"📊 Total downloads: {count}")
+    await update.message.reply_text(f"Total downloads: {count}")
 
 # Run the bot
 app = ApplicationBuilder().token(BOT_TOKEN).build()
