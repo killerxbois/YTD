@@ -1,0 +1,10 @@
+# Netscape HTTP Cookie File
+.youtube.com	TRUE	/	FALSE	2147483647	YSC	qa3Pg7eWz7g
+.youtube.com	TRUE	/	FALSE	2147483647	VISITOR_INFO1_LIVE	0jYNm3_nph0
+.youtube.com	TRUE	/	FALSE	2147483647	PREF	tz=Asia.Calcutta
+.youtube.com	TRUE	/	FALSE	2147483647	HSID	APVBF3udM-nRApbVv
+.youtube.com	TRUE	/	FALSE	2147483647	SSID	Aew4YV77nSVNQ8iMs
+.youtube.com	TRUE	/	FALSE	2147483647	APISID	ieJRfhFy--GkRGSc/AXjWLkV2iaI-axG9t
+.youtube.com	TRUE	/	FALSE	2147483647	SAPISID	Uu9AnFIEgwp7Re5n/Atzq12vrZ-Kp_ZGPh
+.youtube.com	TRUE	/	FALSE	2147483647	__Secure-1PAPISID	Uu9AnFIEgwp7Re5n/Atzq12vrZ-Kp_ZGPh
+.youtube.com	TRUE	/	FALSE	2147483647	__Secure-3PAPISID	Uu9AnFIEgwp7Re5n/Atzq12vrZ-Kp_ZGPh
